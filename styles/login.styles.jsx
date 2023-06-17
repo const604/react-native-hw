@@ -52,6 +52,17 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 4, height: 0 },
     shadowRadius: 4,
   },
+  showPasswordText: {
+    position: "absolute",
+    top: 180,
+    left: 295,
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#1B4371",
+  },
   regBtn: {
     position: "relative",
     width: 343,
