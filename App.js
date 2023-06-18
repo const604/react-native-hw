@@ -35,8 +35,8 @@ export default function App() {
     //   </Stack.Navigator>
 
       <View style={styles.container}>
-        {/* <RegistrationScreen /> */}
-        <LoginScreen />
+        <RegistrationScreen />
+        {/* <LoginScreen /> */}
         <StatusBar style="auto" />
        </View>  
     // </NavigationContainer>
