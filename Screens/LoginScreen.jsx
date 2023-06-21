@@ -11,16 +11,21 @@ import {
   Keyboard,
 } from "react-native";
 import { styles } from "../styles/login.styles";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   
+  const navigation = useNavigation();  
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
+  const [isShowPassword, setIsShowPassword] = useState(true);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     const form = { email: email, password: password };
     console.log(form);
+    navigation.navigate("Home");
   };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -29,7 +34,7 @@ const LoginScreen = () => {
         style={styles.imageBG}
       >
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          // behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -45,17 +50,29 @@ const LoginScreen = () => {
               <TextInput
                 style={styles.input}
                 onChangeText={SetPassword}
+                minLength={8}
+                maxLength={16}
                 value={password}
                 placeholder="Пароль"
-                secureTextEntry
+                secureTextEntry={isShowPassword}
               />
-              <Text style={styles.showPasswordText}>Показати</Text>
+              <Text
+                style={styles.showPasswordText}
+                onPress={() => setIsShowPassword(!isShowPassword)}
+              >
+                Показати
+              </Text>
               <TouchableOpacity style={styles.regBtn} onPress={handleSubmit}>
                 <Text style={styles.regBtnText}>Увійти</Text>
               </TouchableOpacity>
               <Text style={styles.anyAccountText}>
                 Немає акаунту?
-                <Text style={styles.anyAccountLink}>Зареєструватися</Text>
+                <Text
+                  style={styles.anyAccountLink}
+                  onPress={() => navigation.navigate("RegistrationScreen")}
+                >
+                  Зареєструватися
+                </Text>
               </Text>
             </View>
           </TouchableWithoutFeedback>

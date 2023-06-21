@@ -11,11 +11,15 @@ import {
   Keyboard,
 } from "react-native";
 import { styles } from "../styles/registration.styles";
+import { useNavigation } from "@react-navigation/native";
 
 const RegistrationScreen = () => {
+  
+  const navigation = useNavigation();
   const [userName, SetUserName] = useState("");
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
+  const [isShowPassword, setIsShowPassword] = useState(true);
 
   const handleSubmit = () => {
     const form = {
@@ -24,6 +28,7 @@ const RegistrationScreen = () => {
       password: password,
     };
     console.log(form);
+    navigation.navigate("Home");
   };
 
   return (
@@ -34,7 +39,7 @@ const RegistrationScreen = () => {
         style={styles.imageBG}
       >
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          // behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -69,16 +74,28 @@ const RegistrationScreen = () => {
               <TextInput
                 style={styles.input}
                 onChangeText={SetPassword}
+                minLength={8}
+                maxLength={16}
                 value={password}
                 placeholder="Пароль"
                 // autoComplete="password"
-                secureTextEntry
+                secureTextEntry={isShowPassword}
               />
-              <Text style={styles.showPasswordText}>Показати</Text>
+              <Text
+                style={styles.showPasswordText}
+                onPress={() => setIsShowPassword(!isShowPassword)}
+              >
+                Показати
+              </Text>
               <TouchableOpacity style={styles.regBtn} onPress={handleSubmit}>
                 <Text style={styles.regBtnText}>Зареєстуватися</Text>
               </TouchableOpacity>
-              <Text style={styles.anyAccountText}>Вже є акаунт? Увійти</Text>
+              <Text
+                style={styles.anyAccountText}
+                onPress={() => navigation.navigate("LoginScreen")}
+              >
+                Вже є акаунт? Увійти
+              </Text>
             </View>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
