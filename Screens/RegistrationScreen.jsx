@@ -14,12 +14,12 @@ import { styles } from "../styles/registration.styles";
 import { useNavigation } from "@react-navigation/native";
 
 const RegistrationScreen = () => {
-  
   const navigation = useNavigation();
   const [userName, SetUserName] = useState("");
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(true);
+  const [isPhoto, setIsPhoto] = useState(true);
 
   const handleSubmit = () => {
     const form = {
@@ -27,6 +27,10 @@ const RegistrationScreen = () => {
       email: email,
       password: password,
     };
+    if (!userName || !email || !password) {
+      alert("All fields must be filled");
+      return;
+    }
     console.log(form);
     navigation.navigate("Home");
   };
@@ -47,11 +51,13 @@ const RegistrationScreen = () => {
               <View style={styles.containerImg}>
                 <Image
                   style={styles.addPhotoImg}
-                  source={require("../assets/images/Rectangle.webp")}
+                  source={
+                    isPhoto && require("../assets/images/Rectangle.webp")
+                  }
                 />
                 <TouchableOpacity
                   style={styles.addPhotoBtn}
-                  // onPress={onPress}
+                  onPress={() => setIsPhoto(!isPhoto)}
                 >
                   <Text style={styles.addPhotoBtnText}>+</Text>
                 </TouchableOpacity>

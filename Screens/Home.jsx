@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 function ProfileScreen() {
   return (
@@ -27,10 +28,11 @@ function CreatePostsScreen() {
   );
 }
 
-
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
+  const navigation = useNavigation();
+
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
@@ -39,9 +41,9 @@ const Home = () => {
 
           if (route.name === "Profile") {
             iconName = focused ? "ios-person-sharp" : "ios-person-outline";
-          } else if (route.name === "CreatePosts") {
+          } else if (route.name === "Створити публікацію") {
             iconName = focused ? "ios-add" : "ios-add-outline";
-          } else if (route.name === "Posts") {
+          } else if (route.name === "Публікації") {
             iconName = focused ? "ios-grid" : "ios-grid-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -56,28 +58,28 @@ const Home = () => {
       })}
     >
       <Tabs.Screen
-        name="Posts"
+        name="Публікації"
         component={PostsScreen}
         options={{
-          title: "Welcome",
+          title: "Публікації",
           headerStyle: {
-            backgroundColor: "#f4511e",
           },
-          headerTintColor: "#fff",
+          headerTintColor: "#212121",
           headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 20,
+            fontWeight: 500,
+            fontSize: 17,
           },
           headerRight: () => (
-            <Button
-              onPress={() => alert("This is a button!")}
-              title="Press me"
-              color="#fff"
+            <Ionicons
+              name="log-out-outline"
+              size={30}
+              color="#BDBDBD"
+              onPress={() => navigation.navigate("LoginScreen")}
             />
           ),
         }}
       />
-      <Tabs.Screen name="CreatePosts" component={CreatePostsScreen} />
+      <Tabs.Screen name="Створити публікацію" component={CreatePostsScreen} />
       <Tabs.Screen name="Profile" component={ProfileScreen} />
     </Tabs.Navigator>
   );

@@ -14,16 +14,25 @@ import { styles } from "../styles/login.styles";
 import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
-  
-  const navigation = useNavigation();  
+  const navigation = useNavigation();
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(true);
 
   const handleSubmit = () => {
     const form = { email: email, password: password };
+    if (!email || !password) {
+      alert("All fields must be filled");
+      return;
+    }
     console.log(form);
     navigation.navigate("Home");
+    reset();
+  };
+  
+  const reset = () => {
+    SetEmail("");
+    SetPassword("");
   };
 
   return (

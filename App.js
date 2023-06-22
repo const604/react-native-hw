@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import Home from "./Screens/Home";
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 const Stack = createStackNavigator();
@@ -23,34 +23,16 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Navigator
+        initialRouteName="LoginScreen"
+        screenOptions={{ headerShown: false }}
+      >
         <Stack.Screen
           name="RegistrationScreen"
           component={RegistrationScreen}
         />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: "Welcome",
-            // headerStyle: {
-            //   backgroundColor: "#f4511e",
-            // },
-            // headerTintColor: "#fff",
-            // headerTitleStyle: {
-            //   fontWeight: "bold",
-            //   fontSize: 20,
-            // },
-            // headerRight: () => (
-            //   <Button
-            //     onPress={() => alert("This is a button!")}
-            //     title="Press me"
-            //     color="#fff"
-            //   />
-            // ),
-          }}
-        />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

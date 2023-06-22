@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
   },
   pageHeader: {
     marginBottom: 32,
-    fontFamily: "Roboto",
+    fontFamily: "Roboto-Medium",
     fontStyle: "normal",
     fontWeight: 500,
     fontSize: 30,
@@ -98,8 +98,8 @@ export const styles = StyleSheet.create({
   showPasswordText: {
     position: "absolute",
     top: 306,
-    right:"10%",
-    fontFamily: "Roboto",
+    right: "10%",
+    fontFamily: "Roboto-Regular",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 16,
@@ -125,7 +125,7 @@ export const styles = StyleSheet.create({
   regBtnText: {
     position: "absolute",
     top: 20,
-    fontFamily: "Roboto",
+    fontFamily: "Roboto-Regular",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 16,
@@ -135,7 +135,7 @@ export const styles = StyleSheet.create({
     // flexGrow: 0,
   },
   anyAccountText: {
-    fontFamily: "Roboto",
+    fontFamily: "Roboto-Regular",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 16,
@@ -144,7 +144,7 @@ export const styles = StyleSheet.create({
     color: "#1B4371",
   },
   anyAccountLink: {
-    fontFamily: "Roboto",
+    fontFamily: "Roboto-Regular",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 16,
