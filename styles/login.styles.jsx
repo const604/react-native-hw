@@ -66,7 +66,6 @@ export const styles = StyleSheet.create({
     color: "#1B4371",
   },
   regBtn: {
-    // position: "relative",
     width: "98%",
     height: 51,
     marginTop: 43,
@@ -77,13 +76,12 @@ export const styles = StyleSheet.create({
     paddingRight: 16,
     paddingBottom: 32,
     paddingTop: 32,
+    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FF6C00",
     borderRadius: 100,
   },
   regBtnText: {
-    position: "absolute",
-    top: 20,
     fontFamily: "Roboto-Regular",
     fontStyle: "normal",
     fontWeight: 400,

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AntDesign } from "@expo/vector-icons";
 import {
   ImageBackground,
   Text,
@@ -51,21 +52,20 @@ const RegistrationScreen = () => {
               <View style={styles.containerImg}>
                 <Image
                   style={styles.addPhotoImg}
-                  source={
-                    isPhoto && require("../assets/images/Rectangle.webp")
-                  }
+                  source={isPhoto && require("../assets/images/Rectangle.webp")}
                 />
-                <TouchableOpacity
+                <AntDesign
+                  name="pluscircleo"
+                  size={24}
                   style={styles.addPhotoBtn}
-                  onPress={() => setIsPhoto(!isPhoto)}
-                >
-                  <Text style={styles.addPhotoBtnText}>+</Text>
-                </TouchableOpacity>
+                  // onPress={() => navigation.navigate("LoginScreen")}
+                />
               </View>
               <Text style={styles.pageHeader}>Реєстрація </Text>
               <TextInput
                 style={styles.input}
                 placeholder="Логін"
+                placeholderTextColor="#BDBDBD"
                 onChangeText={SetUserName}
                 value={userName}
               />
@@ -74,6 +74,7 @@ const RegistrationScreen = () => {
                 onChangeText={SetEmail}
                 value={email}
                 placeholder="Адреса електронної пошти"
+                placeholderTextColor="#BDBDBD"
                 // autoComplete="email"
                 keyboardType="email-address"
               />
@@ -84,6 +85,7 @@ const RegistrationScreen = () => {
                 maxLength={16}
                 value={password}
                 placeholder="Пароль"
+                placeholderTextColor="#BDBDBD"
                 // autoComplete="password"
                 secureTextEntry={isShowPassword}
               />

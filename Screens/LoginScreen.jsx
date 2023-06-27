@@ -5,7 +5,6 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  Image,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
@@ -21,10 +20,10 @@ const LoginScreen = () => {
 
   const handleSubmit = () => {
     const form = { email: email, password: password };
-    if (!email || !password) {
-      alert("All fields must be filled");
-      return;
-    }
+    // if (!email || !password) {
+    //   alert("All fields must be filled");
+    //   return;
+    // }
     console.log(form);
     navigation.navigate("Home");
     reset();
@@ -54,6 +53,7 @@ const LoginScreen = () => {
                 onChangeText={SetEmail}
                 value={email}
                 placeholder="Адреса електронної пошти"
+                placeholderTextColor="#BDBDBD"
                 keyboardType="email-address"
               />
               <TextInput
@@ -63,6 +63,7 @@ const LoginScreen = () => {
                 maxLength={16}
                 value={password}
                 placeholder="Пароль"
+                placeholderTextColor="#BDBDBD"
                 secureTextEntry={isShowPassword}
               />
               <Text
