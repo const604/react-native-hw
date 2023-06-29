@@ -37,7 +37,7 @@ const Item = ({ title }) => {
      <View style={styles.contentBlock}>
        <Image
          style={styles.contentImg}
-         source={require("../assets/images/Rectangle 23.webp")}
+         source={require("../assets/images/Rectangle23.webp")}
        />
      </View>
      <Text style={styles.contentName}>Ліс</Text>

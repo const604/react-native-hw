@@ -3,14 +3,12 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: "relative",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
     height: "100%",
   },
   imageBG: {
-    // position: "absolute",
     flex: 1,
     justifyContent: "center",
     width: "100%",
@@ -23,8 +21,7 @@ export const styles = StyleSheet.create({
     width: 132,
     height: 120,
   },
-  addPhotoImg: {
-    position: "absolute",
+  avatar: {
     width: 120,
     height: 120,
     backgroundColor: "#F6F6F6",
@@ -52,7 +49,6 @@ export const styles = StyleSheet.create({
     // borderColor: "transparente",
   },
   containerBG: {
-    position: "relative",
     width: "100%",
     height: 549,
     alignItems: "center",
@@ -106,27 +102,19 @@ export const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingBottom: 32,
-    paddingTop: 32,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FF6C00",
-    borderRadius: 100,
+    borderRadius: 50,
   },
   regBtnText: {
     fontFamily: "Roboto-Regular",
-    fontStyle: "normal",
-    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     color: "#FFFFFF",
   },
   anyAccountText: {
     fontFamily: "Roboto-Regular",
-    fontStyle: "normal",
-    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",
@@ -134,8 +122,6 @@ export const styles = StyleSheet.create({
   },
   anyAccountLink: {
     fontFamily: "Roboto-Regular",
-    fontStyle: "normal",
-    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",

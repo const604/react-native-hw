@@ -5,10 +5,13 @@ import { StyleSheet, View, Text, Image } from "react-native";
 
 const PostsScreen = () => {
   const navigation = useNavigation();
-  const [userName, SetUserName] = useState("");
-  console.log(userName);
-  const [email, SetEmail] = useState("");
-  const [isPhoto, setIsPhoto] = useState(true);
+  const [photo, setPhoto] = useState(null);
+  const [title, setTitle] = useState("");
+  const [location, setLocation] = useState(null);
+  // const [userName, SetUserName] = useState("");
+  // console.log(userName);
+  // const [email, SetEmail] = useState("");
+  // const [isPhoto, setIsPhoto] = useState(true);
 
   return (
     <View
@@ -22,7 +25,7 @@ const PostsScreen = () => {
     >
       <View style={styles.containerUser}>
         <Image
-          style={styles.addPhotoImg}
+          style={styles.avatar}
           source={require("../assets/images/Rectangle.webp")}
         />
         <View style={styles.userInfo}>
@@ -32,12 +35,9 @@ const PostsScreen = () => {
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.contentBlock}>
-          <Image
-            style={styles.contentImg}
-            source={require("../assets/images/Rectangle 23.webp")}
-          />
+          <Image style={styles.contentImg} source={{ uri: photo }} />
         </View>
-        <Text style={styles.contentName}>Ліс</Text>
+        <Text style={styles.contentName}>{title}</Text>
         <View style={styles.contentDetails}>
           <View style={styles.contentDetail}>
             <Feather name="message-circle" size={24} color="#BDBDBD" />
@@ -45,7 +45,7 @@ const PostsScreen = () => {
           </View>
           <View style={styles.contentDetail}>
             <Feather name="map-pin" size={24} color="#BDBDBD" />
-            <Text style={styles.mapText}>Ivano-Frankivs'k Region, Ukraine</Text>
+            <Text style={styles.mapText}>{location}</Text>
           </View>
         </View>
       </View>
@@ -53,7 +53,7 @@ const PostsScreen = () => {
         <View style={styles.contentBlock}>
           <Image
             style={styles.contentImg}
-            source={require("../assets/images/Rectangle 23 (1).webp")}
+            source={require("../assets/images/Rectangle24.webp")}
           />
         </View>
         <Text style={styles.contentName}>Ліс</Text>
@@ -74,9 +74,6 @@ const PostsScreen = () => {
 
 const styles = StyleSheet.create({
   containerUser: {
-    // position: "absolute",
-    // top: 0,
-    // left: 0,
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -86,14 +83,9 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     height: 60,
   },
-  addPhotoImg: {
-    // position: "absolute",
-    // top: 0,
-    // left: 0,
+  avatar: {
     width: 60,
     height: 60,
-    // marginTop: 32,
-    // marginLeft: 16,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
     borderWidth: 1,

@@ -32,7 +32,6 @@ const RegistrationScreen = () => {
       alert("All fields must be filled");
       return;
     }
-    console.log(form);
     navigation.navigate("Home");
   };
 
@@ -44,14 +43,14 @@ const RegistrationScreen = () => {
         style={styles.imageBG}
       >
         <KeyboardAvoidingView
-          // behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.containerBG}>
               <View style={styles.containerImg}>
                 <Image
-                  style={styles.addPhotoImg}
+                  style={styles.avatar}
                   source={isPhoto && require("../assets/images/Rectangle.webp")}
                 />
                 <AntDesign

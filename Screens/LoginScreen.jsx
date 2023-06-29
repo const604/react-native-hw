@@ -42,7 +42,7 @@ const LoginScreen = () => {
         style={styles.imageBG}
       >
         <KeyboardAvoidingView
-          // behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

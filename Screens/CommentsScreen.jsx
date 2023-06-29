@@ -22,7 +22,7 @@ const CommentsScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      // behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -31,7 +31,7 @@ const CommentsScreen = () => {
             {/* <View style={styles.contentBlock}> */}
             <Image
               style={styles.contentImg}
-              source={require("../assets/images/Rectangle 23.webp")}
+              source={require("../assets/images/Rectangle23.webp")}
             />
             {/* </View> */}
           </View>
@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
     marginRight: "auto",
   },
   contentImg: {
-    width: "100%",
-    height: "100%",
+    width: "99%",
+    height: "99%",
     marginBottom: 32,
     borderRadius: 8,
   },
