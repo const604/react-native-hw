@@ -168,7 +168,6 @@ const CreatePostsScreen = () => {
               value={title}
               placeholder="Назва..."
               placeholderTextColor="#BDBDBD"
-              // keyboardType="email-address"
             />
             <View style={styles.locationForm}>
               <TextInput
@@ -204,12 +203,8 @@ const CreatePostsScreen = () => {
                 paddingTop: 8,
                 marginLeft: "auto",
                 marginRight: "auto",
-                // justifyContent: "center",
-                // alignContent: "center",
                 backgroundColor: "#F6F6F6",
                 color: "#BDBDBD",
-                // position: "absolute",
-                // left: 0,
               }}
               onPress={onTrash}
             />
@@ -231,7 +226,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     width: "100%",
-    height: 267,
+    height: 367,
     justifyContent: "flex-start",
     alignItems: "flex-start",
     marginTop: 32,
@@ -241,7 +236,7 @@ const styles = StyleSheet.create({
   },
   contentBlock: {
     width: "100%",
-    height: 240,
+    height: 340,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 8,

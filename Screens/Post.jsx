@@ -38,11 +38,21 @@ const Post = () => {
         <Text style={styles.contentName}>{title}</Text>
         <View style={styles.contentDetails}>
           <View style={styles.contentDetail}>
-            <Feather name="message-circle" size={24} color="#BDBDBD" />
+            <Feather
+              name="message-circle"
+              size={24}
+              color="#BDBDBD"
+              onPress={() => navigation.navigate("Comments")}
+            />
             <Text style={styles.comitText}>0</Text>
           </View>
           <View style={styles.contentDetail}>
-            <Feather name="map-pin" size={24} color="#BDBDBD" />
+            <Feather
+              name="map-pin"
+              size={24}
+              color="#BDBDBD"
+              onPress={() => navigation.navigate("Map")}
+            />
             <Text style={styles.mapText}>{point}</Text>
           </View>
         </View>
@@ -98,7 +108,7 @@ const styles = StyleSheet.create({
   },
   contentBlock: {
     width: "100%",
-    height: 240,
+    height: 340,
     // justifyContent: "center",
     // alignItems: "center",
     marginBottom: 8,
