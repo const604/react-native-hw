@@ -106,6 +106,12 @@ const CreatePostsScreen = () => {
     );
   };
 
+  const onTrash = () => {
+    setPhoto(null);
+    setTitle("");
+    setPoint("");
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -205,7 +211,7 @@ const CreatePostsScreen = () => {
                 // position: "absolute",
                 // left: 0,
               }}
-              onPress={() => navigation.navigate("Map")}
+              onPress={onTrash}
             />
           </View>
         </ScrollView>
