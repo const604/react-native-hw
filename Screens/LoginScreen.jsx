@@ -79,7 +79,7 @@ const LoginScreen = () => {
                 Немає акаунту?
                 <Text
                   style={styles.anyAccountLink}
-                  onPress={() => navigation.navigate("RegistrationScreen")}
+                  onPress={() => navigation.navigate("Registration")}
                 >
                   Зареєструватися
                 </Text>

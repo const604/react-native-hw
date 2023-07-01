@@ -47,7 +47,7 @@ const Item = ({ title }) => {
            name="message-circle"
            size={24}
            color="#FF6C00"
-           onPress={() => navigation.navigate("CommentsScreen")}
+           onPress={() => navigation.navigate("Comments")}
          />
          <Text style={styles.commentText}>50</Text>
          <Feather name="thumbs-up" size={24} color="#FF6C00" />
@@ -58,7 +58,7 @@ const Item = ({ title }) => {
            name="map-pin"
            size={24}
            color="#BDBDBD"
-           onPress={() => navigation.navigate("MapScreen")}
+           onPress={() => navigation.navigate("Map")}
          />
          <Text style={styles.mapText}>Ukraine</Text>
        </View>
@@ -88,7 +88,7 @@ const ProfileScreen = () => {
             size={24}
             color="#BDBDBD"
             style={styles.logoutBtn}
-            onPress={() => navigation.navigate("LoginScreen")}
+            onPress={() => navigation.navigate("Login")}
           />
           <View style={styles.containerImg}>
             <Image
@@ -99,7 +99,7 @@ const ProfileScreen = () => {
               name="closecircleo"
               size={25}
               style={styles.addPhotoBtn}
-              // onPress={() => navigation.navigate("LoginScreen")}
+              // onPress={() => navigation.navigate("Login")}
             />
           </View>
           <Text style={styles.pageHeader}>Natali Romanova </Text>

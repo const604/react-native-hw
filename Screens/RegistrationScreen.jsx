@@ -99,7 +99,7 @@ const RegistrationScreen = () => {
               </TouchableOpacity>
               <Text
                 style={styles.anyAccountText}
-                onPress={() => navigation.navigate("LoginScreen")}
+                onPress={() => navigation.navigate("Login")}
               >
                 Вже є акаунт? Увійти
               </Text>

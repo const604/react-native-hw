@@ -1,4 +1,7 @@
 import "react-native-gesture-handler";
+// import { Provider } from "react-redux";
+// import { persistor, store } from "./redux/store";
+// import { PersistGate } from "redux-persist/integration/react";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,6 +14,7 @@ import MapScreen from "./Screens/MapScreen";
 import { useNavigation } from "@react-navigation/native";
 // import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View } from "react-native";
+import Post from "./Screens/Post";
 
 const Stack = createStackNavigator();
 
@@ -27,21 +31,21 @@ export default function App() {
   }
 
   return (
+    // <Provider store={store}>
+    //   <PersistGate loading={null} persistor={persistor}>
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="LoginScreen"
+        initialRouteName="Login"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen
-          name="RegistrationScreen"
-          component={RegistrationScreen}
-        />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen
-          name="CommentsScreen"
+          name="Comments"
           component={CommentsScreen}
           options={{
+            title: "Коментарі",
             headerLeftContainerStyle: { paddingLeft: 16 },
             headerShown: true,
             headerLeft: () => (
@@ -49,14 +53,40 @@ export default function App() {
                 name="arrow-left"
                 size={24}
                 color="#212121CC"
+                // onPress={() => navigation.navigate("Posts")}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen name="Map" component={MapScreen} />
+        <Stack.Screen
+          name="Post"
+          component={Post}
+          options={{
+            title: "Публікація",
+            headerRightContainerStyle: { paddingRight: 16 },
+            headerShown: true,
+            headerTintColor: "#212121",
+            headerTitleStyle: {
+              fontWeight: 500,
+              fontSize: 17,
+            },
+            headerTitleAlign: "center",
+            headerLeftContainerStyle: { display: "none" },
+            headerRight: () => (
+              <Feather
+                name="log-out"
+                size={24}
+                color="#BDBDBD"
                 // onPress={() => navigation.navigate("LoginScreen")}
               />
             ),
           }}
         />
-        <Stack.Screen name="MapScreen" component={MapScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+    //   </PersistGate>
+    // </Provider>
   );
 }
 

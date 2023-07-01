@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Feather, FontAwesome, MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   Keyboard,
   Image,
+  ScrollView,
 } from "react-native";
 
 const CreatePostsScreen = () => {
@@ -27,6 +28,8 @@ const CreatePostsScreen = () => {
   // const [coords, setCoords] = useState(null);
 
   const navigation = useNavigation();
+
+  const focused = useIsFocused();
 
   useEffect(() => {
     (async () => {
@@ -88,112 +91,126 @@ const CreatePostsScreen = () => {
       longitude: location.coords.longitude,
     };
     setLocation(coords);
-    
+
     console.log(coords);
     console.log(photo);
     console.log(title);
     console.log(point);
-    navigation.navigate("Публікації");
+    navigation.navigate(
+      "Post",
+      (params = {
+        title: title,
+        photo: photo,
+        point: point,
+      })
+    );
   };
 
   return (
-    // <KeyboardAvoidingView
-    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-    //   style={styles.container}
-    // >
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <View style={styles.contentContainer}>
-          <View style={styles.contentBlock}>
-            {/* {photo && (
-              <Image style={styles.contentImg} source={{ uri: photo }} />
-            )} */}
-            <Camera
-              style={styles.camera}
-              type={type}
-              ref={(ref) => setCameraRef(ref)}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView style={styles.container}>
+          <View style={styles.contentContainer}>
+            <View style={styles.contentBlock}>
+              {photo ? (
+                <Image style={styles.contentImg} source={{ uri: photo }} />
+              ) : (
+                permission && (
+                  <>
+                    {focused && (
+                      <Camera
+                        style={styles.camera}
+                        type={type}
+                        ref={setCameraRef}
+                      >
+                        <View style={styles.cameraBlock}>
+                          <FontAwesome
+                            name="camera"
+                            size={24}
+                            color="#FFFFFF"
+                            onPress={takePicture}
+                          />
+                        </View>
+                        <View style={styles.photoView}>
+                          <MaterialIcons
+                            name="flip-camera-android"
+                            size={24}
+                            color="#BDBDBD"
+                            onPress={toggleCameraType}
+                          />
+                        </View>
+                      </Camera>
+                    )}
+                  </>
+                )
+              )}
+            </View>
+            <Text
+              style={styles.addPhotoText}
+              onPress={() => navigation.navigate("Map")}
             >
-              <View style={styles.cameraBlock}>
-                <TouchableOpacity onPress={takePicture}>
-                  <FontAwesome name="camera" size={24} color="#FFFFFF" />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.photoView}>
-                <TouchableOpacity onPress={toggleCameraType}>
-                  <MaterialIcons
-                    name="flip-camera-android"
-                    size={24}
-                    color="#BDBDBD"
-                  />
-                </TouchableOpacity>
-              </View>
-            </Camera>
+              Редагувати фото
+            </Text>
           </View>
-          <Text
-            style={styles.addPhotoText}
-            onPress={() => navigation.navigate("MapScreen")}
-          >
-            Редагувати фото
-          </Text>
-        </View>
-        <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setTitle(text)}
-            value={title}
-            placeholder="Назва..."
-            placeholderTextColor="#BDBDBD"
-            // keyboardType="email-address"
-          />
-          <View style={styles.locationForm}>
+          <View style={styles.form}>
             <TextInput
-              style={styles.locationInput}
-              onChangeText={(text) => setPoint(text)}
-              value={point}
-              placeholder="Місцевість..."
+              style={styles.input}
+              onChangeText={(text) => setTitle(text)}
+              value={title}
+              placeholder="Назва..."
               placeholderTextColor="#BDBDBD"
+              // keyboardType="email-address"
+            />
+            <View style={styles.locationForm}>
+              <TextInput
+                style={styles.locationInput}
+                onChangeText={(text) => setPoint(text)}
+                value={point}
+                placeholder="Місцевість..."
+                placeholderTextColor="#BDBDBD"
+              />
+            </View>
+            <Feather
+              name="map-pin"
+              size={24}
+              color="#BDBDBD"
+              style={{
+                position: "absolute",
+                top: 80,
+                left: 0,
+              }}
+              onPress={() => navigation.navigate("Map")}
+            />
+            <TouchableOpacity style={styles.postBtn} onPress={publishPost}>
+              <Text style={styles.postText}>Опублікувати</Text>
+            </TouchableOpacity>
+            <Feather
+              name="trash-2"
+              size={24}
+              style={{
+                width: 70,
+                height: 40,
+                borderRadius: 20,
+                paddingLeft: 23,
+                paddingTop: 8,
+                marginLeft: "auto",
+                marginRight: "auto",
+                // justifyContent: "center",
+                // alignContent: "center",
+                backgroundColor: "#F6F6F6",
+                color: "#BDBDBD",
+                // position: "absolute",
+                // left: 0,
+              }}
+              onPress={() => navigation.navigate("Map")}
             />
           </View>
-          {/* <TouchableOpacity onPress={() => navigation.navigate("MapScreen")}> */}
-          <Feather
-            name="map-pin"
-            size={24}
-            color="#BDBDBD"
-            style={{
-              position: "absolute",
-              top: 80,
-              left: 0,
-            }}
-            onPress={() => navigation.navigate("MapScreen")}
-          />
-          {/* </TouchableOpacity> */}
-          <TouchableOpacity style={styles.postBtn} onPress={publishPost}>
-            <Text style={styles.postText}>Опублікувати</Text>
-          </TouchableOpacity>
-          <Feather
-            name="trash-2"
-            size={24}
-            style={{
-              width: 70,
-              height: 40,
-              borderRadius: 20,
-              paddingLeft: 23,
-              paddingTop: 8,
-              marginLeft: "auto",
-              marginRight: "auto",
-              // justifyContent: "center",
-              // alignContent: "center",
-              backgroundColor: "#F6F6F6",
-              color: "#BDBDBD",
-              // position: "absolute",
-              // left: 0,
-            }}
-            onPress={() => navigation.navigate("MapScreen")}
-          />
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
-    // </KeyboardAvoidingView>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

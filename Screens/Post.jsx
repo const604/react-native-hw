@@ -3,16 +3,13 @@ import { Feather, FontAwesome } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StyleSheet, View, Text, Image } from "react-native";
 
-const PostsScreen = () => {
-  // const navigation = useNavigation();
+const Post = () => {
+  const navigation = useNavigation();
 
-  // const [photo, setPhoto] = useState(null);
-  // const [title, setTitle] = useState("");
-  // const [location, setLocation] = useState(null);
-  // const [userName, SetUserName] = useState("");
-  // console.log(userName);
-  // const [email, SetEmail] = useState("");
-  // const [isPhoto, setIsPhoto] = useState(true);
+  
+  const {
+    params: { photo, title, point, location },
+  } = useRoute();
 
   return (
     <View
@@ -34,7 +31,7 @@ const PostsScreen = () => {
           <Text style={styles.userEmail}>email@example.com</Text>
         </View>
       </View>
-      {/* <View style={styles.contentContainer}>
+      <View style={styles.contentContainer}>
         <View style={styles.contentBlock}>
           <Image style={styles.contentImg} source={{ uri: photo }} />
         </View>
@@ -49,26 +46,7 @@ const PostsScreen = () => {
             <Text style={styles.mapText}>{point}</Text>
           </View>
         </View>
-      </View> */}
-      {/* <View style={styles.contentContainer}>
-        <View style={styles.contentBlock}>
-          <Image
-            style={styles.contentImg}
-            source={require("../assets/images/Rectangle24.webp")}
-          />
-        </View>
-        <Text style={styles.contentName}>Ліс</Text>
-        <View style={styles.contentDetails}>
-          <View style={styles.contentDetail}>
-            <Feather name="message-circle" size={24} color="#BDBDBD" />
-            <Text style={styles.comitText}>0</Text>
-          </View>
-          <View style={styles.contentDetail}>
-            <Feather name="map-pin" size={24} color="#BDBDBD" />
-            <Text style={styles.mapText}>Ivano-Frankivs'k Region, Ukraine</Text>
-          </View>
-        </View>
-      </View> */}
+      </View>
     </View>
   );
 };
@@ -171,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostsScreen;
+export default Post;

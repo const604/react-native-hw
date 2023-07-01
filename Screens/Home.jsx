@@ -14,20 +14,8 @@ const Home = () => {
 
   return (
     <Tabs.Navigator
-      initialRouteName="Публікації"
+      initialRouteName="Posts"
       screenOptions={({ route }) => ({
-        // tabBarIcon: ({ focused, color, size }) => {
-        //   let iconName;
-
-        //   if (route.name === "Profile") {
-        //     iconName = "user";
-        //     } else if (route.name === "Створити публікацію") {
-        //       iconName = "plus";
-        //   } else if (route.name === "Публікації") {
-        //     iconName = "grid";
-        //   }
-        //   return <Feather name={iconName} size={size} color={color} />;
-        // },
         headerTintColor: "#212121",
         headerTitleStyle: {
           fontWeight: 500,
@@ -51,33 +39,20 @@ const Home = () => {
           paddingBottom: 32,
           height: 83,
         },
-        // tabBarStyle: [
-        //   {
-        //     display: "flex",
-        //     paddingTop: 4,
-        //     paddingBottom: 4,
-        //   },
-        //   null,
-        // ],
-        // tabBarIconStyle: {
-        //   width: 70,
-        //   height: 40,
-        //   borderRadius: 20,
-        //   backgroundColor: "#FF6C00",
-        // },
       })}
     >
       <Tabs.Screen
-        name="Публікації"
+        name="Posts"
         component={PostsScreen}
         options={{
+          title: "Публікації",
           headerRightContainerStyle: { paddingRight: 16 },
           headerRight: () => (
             <Feather
               name="log-out"
               size={24}
               color="#BDBDBD"
-              onPress={() => navigation.navigate("LoginScreen")}
+              onPress={() => navigation.navigate("Login")}
             />
           ),
           tabBarActiveBackgroundColor: "#FFFFFF",
@@ -87,16 +62,17 @@ const Home = () => {
         }}
       />
       <Tabs.Screen
-        name="Створити публікацію"
+        name="CreatePosts"
         component={CreatePostsScreen}
         options={{
+          title: "Створити публікацію",
           headerLeftContainerStyle: { paddingLeft: 16 },
           headerLeft: () => (
             <Feather
               name="arrow-left"
               size={24}
               color="#212121CC"
-              onPress={() => navigation.navigate("Публікації")}
+              onPress={() => navigation.navigate("Posts")}
             />
           ),
           tabBarStyle: { display: "none" },
