@@ -11,24 +11,32 @@ import {
 } from "react-native";
 import { styles } from "../styles/login.styles";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { logIn } from "../redux/auth/operations";
+import { useAuth } from "../hooks/useAuth";
 
 const LoginScreen = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(true);
+  const { isLoggedIn, isRefreshing } = useAuth();
 
   const handleSubmit = () => {
-    const form = { email: email, password: password };
-    // if (!email || !password) {
-    //   alert("All fields must be filled");
-    //   return;
-    // }
-    console.log(form);
+    const user = { email: email, password: password };
+    if (!email || !password) {
+      alert("All fields must be filled");
+      return;
+    }
+    dispatch(logIn(user));
+    if (!isLoggedIn) {
+      return navigation.navigate("Login");
+    }
     navigation.navigate("Home");
     reset();
   };
-  
+
   const reset = () => {
     SetEmail("");
     SetPassword("");

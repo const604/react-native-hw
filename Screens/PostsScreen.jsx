@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  SafeAreaView,
+  FlatList,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+} from "react-native";
+import { useAuth } from "../hooks/useAuth";
+import { selectPosts } from "../redux/posts/selectors";
+import { getPosts } from "../redux/posts/operations";
+import Post from "../components/Post";
+// import { useSelector } from "react-redux";
+// import { selectUser } from "../redux/auth/selectors";
 
 const PostsScreen = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
+  const { user } = useAuth();
+  const dispatch = useDispatch();
+  const posts = useSelector(selectPosts);
 
-  // const [photo, setPhoto] = useState(null);
-  // const [title, setTitle] = useState("");
-  // const [location, setLocation] = useState(null);
-  // const [userName, SetUserName] = useState("");
-  // console.log(userName);
-  // const [email, SetEmail] = useState("");
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
+
+  // console.log(posts);
+
   // const [isPhoto, setIsPhoto] = useState(true);
 
   return (
@@ -30,45 +48,53 @@ const PostsScreen = () => {
           source={require("../assets/images/Rectangle.webp")}
         />
         <View style={styles.userInfo}>
-          <Text style={styles.userName}>Natali Romanova</Text>
-          <Text style={styles.userEmail}>email@example.com</Text>
+          {user && (
+            <>
+              <Text style={styles.userName}>{user.userName}</Text>
+              <Text style={styles.userEmail}>{user.email}</Text>
+            </>
+          )}
         </View>
       </View>
-      {/* <View style={styles.contentContainer}>
-        <View style={styles.contentBlock}>
-          <Image style={styles.contentImg} source={{ uri: photo }} />
-        </View>
-        <Text style={styles.contentName}>{title}</Text>
-        <View style={styles.contentDetails}>
-          <View style={styles.contentDetail}>
-            <Feather name="message-circle" size={24} color="#BDBDBD" />
-            <Text style={styles.comitText}>0</Text>
-          </View>
-          <View style={styles.contentDetail}>
-            <Feather name="map-pin" size={24} color="#BDBDBD" />
-            <Text style={styles.mapText}>{point}</Text>
-          </View>
-        </View>
-      </View> */}
-      {/* <View style={styles.contentContainer}>
-        <View style={styles.contentBlock}>
-          <Image
-            style={styles.contentImg}
-            source={require("../assets/images/Rectangle24.webp")}
-          />
-        </View>
-        <Text style={styles.contentName}>Ліс</Text>
-        <View style={styles.contentDetails}>
-          <View style={styles.contentDetail}>
-            <Feather name="message-circle" size={24} color="#BDBDBD" />
-            <Text style={styles.comitText}>0</Text>
-          </View>
-          <View style={styles.contentDetail}>
-            <Feather name="map-pin" size={24} color="#BDBDBD" />
-            <Text style={styles.mapText}>Ivano-Frankivs'k Region, Ukraine</Text>
-          </View>
-        </View>
-      </View> */}
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
+          {posts.length > 0 &&
+            posts.map(({ id, photo, title, point }) => (
+              // <Post key={id} photo={photo} title={title} point={point}/>
+              <View key={id} style={styles.contentContainer}>
+                <View style={styles.contentBlock}>
+                  <Image style={styles.contentImg} source={{ uri: photo }} />
+                </View>
+                <Text style={styles.contentName}>{title}</Text>
+                <View style={styles.contentDetails}>
+                  <View style={styles.contentDetail}>
+                    <Feather
+                      name="message-circle"
+                      size={24}
+                      color="#BDBDBD"
+                      onPress={() => navigation.navigate("Comments")}
+                    />
+                    <Text style={styles.comitText}>0</Text>
+                  </View>
+                  <View style={styles.contentDetail}>
+                    <Feather
+                      name="map-pin"
+                      size={24}
+                      color="#BDBDBD"
+                      onPress={() => navigation.navigate("Map")}
+                    />
+                    <Text style={styles.mapText}>{point}</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+        </ScrollView>
+        {/* <FlatList
+          data={posts}
+          renderItem={({ post }) => <Post data={post}></Post>}
+          keyExtractor={(post) => post.id}
+        /> */}
+      </SafeAreaView>
     </View>
   );
 };
@@ -108,12 +134,15 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontFamily: "Roboto-Regular",
   },
+  container: {
+    width: "100%",
+    marginBottom: 60,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
   contentContainer: {
-    width: "92%",
+    width: "96%",
     height: 299,
-    // justifyContent: "flex-start",
-    // alignItems: "flex-start",
-    // marginTop: 32,
     marginBottom: 32,
     marginLeft: "auto",
     marginRight: "auto",

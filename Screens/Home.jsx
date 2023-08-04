@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { logOut } from "../redux/auth/operations";
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
@@ -10,7 +12,14 @@ import ProfileScreen from "./ProfileScreen";
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
+  
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const handleSubmit = () => {
+    dispatch(logOut());
+    navigation.navigate("Login");
+  };
 
   return (
     <Tabs.Navigator
@@ -52,7 +61,7 @@ const Home = () => {
               name="log-out"
               size={24}
               color="#BDBDBD"
-              onPress={() => navigation.navigate("Login")}
+              onPress={handleSubmit}
             />
           ),
           tabBarActiveBackgroundColor: "#FFFFFF",

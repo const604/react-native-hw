@@ -7,16 +7,18 @@ import { getFirestore } from "firebase/firestore";
 // Функція для підключення сховища файлів в проект
 import { getStorage } from "firebase/storage";
 
+// const API_KEY = import.meta.env.VITE_API_KEY;
+
 const firebaseConfig = {
-  apiKey: "api-key",
-  authDomain: "project-id.firebaseapp.com",
-  databaseURL: "https://project-id.firebaseio.com",
-  projectId: "project-id",
-  storageBucket: "project-id.appspot.com",
-  messagingSenderId: "sender-id",
-  appId: "app-id",
-  measurementId: "G-measurement-id",
+  apiKey: "AIzaSyAdyRKkZ31wOfmOxDd4ME4ECV2xIL37BB0",
+  authDomain: "photoapp-9518f.firebaseapp.com",
+  projectId: "photoapp-9518f",
+  storageBucket: "photoapp-9518f.appspot.com",
+  messagingSenderId: "413675402871",
+  appId: "1:413675402871:web:071edb946e9f9be6453872",
+  measurementId: "G-L1K8BJZ651",
 };
+
 
 const app = initializeApp(firebaseConfig);
 

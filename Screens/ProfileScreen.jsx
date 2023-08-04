@@ -10,6 +10,7 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
+import { useAuth } from "../hooks/useAuth";
 
 
 
@@ -70,10 +71,8 @@ const Item = ({ title }) => {
 const ProfileScreen = () => {
   
   const navigation = useNavigation();
-  const [userName, SetUserName] = useState("");
-  console.log(userName);
-  const [email, SetEmail] = useState("");
-  const [isPhoto, setIsPhoto] = useState(true);
+  const { user } = useAuth();
+  const [isPhoto, setIsPhoto] = useState(true); 
 
   return (
     <View style={styles.container}>
@@ -102,7 +101,7 @@ const ProfileScreen = () => {
               // onPress={() => navigation.navigate("Login")}
             />
           </View>
-          <Text style={styles.pageHeader}>Natali Romanova </Text>
+          <Text style={styles.pageHeader}>{user.userName}</Text>
           <SafeAreaView style={styles.itemsContainer}>
             <FlatList
               data={DATA}

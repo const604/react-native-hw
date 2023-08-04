@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { Feather, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Camera, CameraType } from "expo-camera";
@@ -16,12 +17,16 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import { createPost } from "../redux/posts/operations";
 
 const CreatePostsScreen = () => {
+  const dispatch = useDispatch();
+
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [cameraRef, setCameraRef] = useState(null);
-  const [photo, setPhoto] = useState(null);
+
+  const [photo, setPhoto] = useState("");
   const [title, setTitle] = useState("");
   const [point, setPoint] = useState("");
   const [location, setLocation] = useState(null);
@@ -73,7 +78,6 @@ const CreatePostsScreen = () => {
     if (cameraRef) {
       const { uri } = await cameraRef.takePictureAsync();
       setPhoto(uri);
-      console.log(uri);
 
       await MediaLibrary.createAssetAsync(uri);
     }
@@ -92,18 +96,15 @@ const CreatePostsScreen = () => {
     };
     setLocation(coords);
 
-    console.log(coords);
-    console.log(photo);
-    console.log(title);
-    console.log(point);
-    navigation.navigate(
-      "Post",
-      (params = {
-        title: title,
-        photo: photo,
-        point: point,
-      })
-    );
+    const post = {
+      title: title,
+      photo: photo,
+      point: point,
+    };
+
+    dispatch(createPost(post));
+
+    navigation.navigate("Posts");
   };
 
   const onTrash = () => {
@@ -121,37 +122,36 @@ const CreatePostsScreen = () => {
         <ScrollView style={styles.container}>
           <View style={styles.contentContainer}>
             <View style={styles.contentBlock}>
-              {photo ? (
+              {permission && (
+                <>
+                  {focused && (
+                    <Camera
+                      style={styles.camera}
+                      type={type}
+                      ref={setCameraRef}
+                    >
+                      <View style={styles.cameraBlock}>
+                        <FontAwesome
+                          name="camera"
+                          size={24}
+                          color="#FFFFFF"
+                          onPress={takePicture}
+                        />
+                      </View>
+                      <View style={styles.photoView}>
+                        <MaterialIcons
+                          name="flip-camera-android"
+                          size={24}
+                          color="#BDBDBD"
+                          onPress={toggleCameraType}
+                        />
+                      </View>
+                    </Camera>
+                  )}
+                </>
+              )}
+              {photo && (
                 <Image style={styles.contentImg} source={{ uri: photo }} />
-              ) : (
-                permission && (
-                  <>
-                    {focused && (
-                      <Camera
-                        style={styles.camera}
-                        type={type}
-                        ref={setCameraRef}
-                      >
-                        <View style={styles.cameraBlock}>
-                          <FontAwesome
-                            name="camera"
-                            size={24}
-                            color="#FFFFFF"
-                            onPress={takePicture}
-                          />
-                        </View>
-                        <View style={styles.photoView}>
-                          <MaterialIcons
-                            name="flip-camera-android"
-                            size={24}
-                            color="#BDBDBD"
-                            onPress={toggleCameraType}
-                          />
-                        </View>
-                      </Camera>
-                    )}
-                  </>
-                )
               )}
             </View>
             <Text
@@ -259,11 +259,11 @@ const styles = StyleSheet.create({
     right: 10,
     bottom: 10,
   },
-  // contentImg: {
-  //   width: "100%",
-  //   height: "100%",
-  //   borderRadius: 8,
-  // },
+  contentImg: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 8,
+  },
   cameraBlock: {
     position: "absolute",
     justifyContent: "center",

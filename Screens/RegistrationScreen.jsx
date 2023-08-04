@@ -13,8 +13,11 @@ import {
 } from "react-native";
 import { styles } from "../styles/registration.styles";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/auth/operations";
 
 const RegistrationScreen = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [userName, SetUserName] = useState("");
   const [email, SetEmail] = useState("");
@@ -23,7 +26,7 @@ const RegistrationScreen = () => {
   const [isPhoto, setIsPhoto] = useState(true);
 
   const handleSubmit = () => {
-    const form = {
+    const user = {
       userName: userName,
       email: email,
       password: password,
@@ -32,7 +35,9 @@ const RegistrationScreen = () => {
       alert("All fields must be filled");
       return;
     }
-    navigation.navigate("Home");
+    dispatch(register(user));
+    // form.reset();
+    navigation.navigate("Login");
   };
 
   return (
@@ -71,22 +76,22 @@ const RegistrationScreen = () => {
               <TextInput
                 style={styles.input}
                 onChangeText={SetEmail}
-                value={email}
                 placeholder="Адреса електронної пошти"
                 placeholderTextColor="#BDBDBD"
                 // autoComplete="email"
                 keyboardType="email-address"
+                value={email}
               />
               <TextInput
                 style={styles.input}
                 onChangeText={SetPassword}
                 minLength={8}
                 maxLength={16}
-                value={password}
                 placeholder="Пароль"
                 placeholderTextColor="#BDBDBD"
                 // autoComplete="password"
                 secureTextEntry={isShowPassword}
+                value={password}
               />
               <Text
                 style={styles.showPasswordText}
