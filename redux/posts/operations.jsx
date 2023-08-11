@@ -4,49 +4,67 @@ import {
   getDocs,
   updateDoc,
   doc,
+  arrayUnion,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-
-export const createPost = createAsyncThunk("posts/createPost", async (post) => {
-  try {
-    const docRef = await addDoc(collection(db, "posts"), post);
-    console.log("Document written with ID: ", docRef.id);
-    return { id: docRef.id, ...post };
-  } catch (e) {
-    console.error("Error adding document: ", e);
-    throw e;
-  }
-});
-
-export const getPosts = createAsyncThunk("posts/getPosts", async () => {
-  try {
-    const snapshot = await getDocs(collection(db, "posts"));
-    // Перевіряємо у консолі отримані дані
-    const posts = [];
-    snapshot.forEach((post) => posts.push({ id: post.id, ...post.data() }));
-    // Повертаємо масив обʼєктів у довільній формі
-    // snapshot.map((post) => ({ id: post.id, data: post.data() }));
-    return posts;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-});
-
-export const updatePosts = createAsyncThunk(
-  "posts/updatePosts",
-  async (collectionName, docId) => {
+export const createPost = createAsyncThunk(
+  "posts/createPost",
+  async (post, thunkAPI) => {
     try {
-      const ref = doc(db, collectionName, docId);
+      const docRef = await addDoc(collection(db, "posts"), post);
+      console.log("Document written with ID: ", docRef.id);
+      return { postId: docRef.id, ...post };
+    } catch (e) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
-      await updateDoc(ref, {
-        age: 25,
-      });
-      console.log("document updated");
+export const getPosts = createAsyncThunk(
+  "posts/getPosts",
+  async (_, thunkAPI) => {
+    try {
+      const snapshot = await getDocs(collection(db, "posts"));
+      // Перевіряємо у консолі отримані дані
+      const posts = [];
+      snapshot.forEach((post) => posts.push({ postId: post.id, ...post.data() }));
+      // Повертаємо масив обʼєктів у довільній формі
+      // snapshot.map((post) => ({ id: post.id, data: post.data() }));
+      return posts;
     } catch (error) {
-      console.log(error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateComments = createAsyncThunk(
+  "posts/updateComments",
+  async ( {postId, ...comment} , thunkAPI) => {
+    try {
+      await updateDoc(doc(db, "posts", postId), {
+        comments: arrayUnion(comment),
+      });
+      console.log("comments updated");
+      return comment;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateLikes = createAsyncThunk(
+  "posts/updateLikes",
+  async ({ postId, userId }, thunkAPI) => {
+    try {
+      await updateDoc(doc(db, "posts", postId), {
+        likes: arrayUnion(userId),
+      });
+      console.log("likes updated");
+      return userId;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

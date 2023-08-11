@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createPost, getPosts, updatePosts } from "./operations";
-import { logOut } from "../auth/operations";
+import { createPost, getPosts, updateComments, updateLikes } from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -36,21 +35,28 @@ const postsSlice = createSlice({
       .addCase(createPost.pending, handlePending)
       .addCase(createPost.rejected, handleRejected)
 
-      .addCase(updatePosts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        const index = state.posts.findIndex(
-          (post) => post.id === action.payload.id
+      .addCase(updateComments.pending, handlePending)
+      .addCase(updateComments.fulfilled, (state, action) => {
+        const post = state.posts.find(
+          (post) => post.id === action.payload.postId
         );
-        state.posts.splice(index, 1);
-      })
-      .addCase(updatePosts.pending, handlePending)
-      .addCase(updatePosts.rejected, handleRejected)
-      .addCase(logOut.fulfilled, (state) => {
-        state.posts = [];
-        state.error = null;
+        console.log("comment published");
         state.isLoading = false;
-      }),
+        state.error = null;
+        post.comments.push(action.payload);
+      })
+      .addCase(updateComments.rejected, handleRejected)
+
+      .addCase(updateLikes.pending, handlePending)
+      .addCase(updateLikes.fulfilled, (state, action) => {
+        const post = state.posts.find(
+          (post) => post.id === action.payload.postId
+        );
+        state.isLoading = false;
+        state.error = null;
+        post.likes.push(action.payload);
+      })
+      .addCase(updateLikes.rejected, handleRejected),
 });
 
 export const postsReducer = postsSlice.reducer;

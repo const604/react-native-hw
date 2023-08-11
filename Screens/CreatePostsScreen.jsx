@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Feather, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -30,7 +30,6 @@ const CreatePostsScreen = () => {
   const [title, setTitle] = useState("");
   const [point, setPoint] = useState("");
   const [location, setLocation] = useState(null);
-  // const [coords, setCoords] = useState(null);
 
   const navigation = useNavigation();
 
@@ -43,22 +42,6 @@ const CreatePostsScreen = () => {
 
       requestPermission(status === "granted");
     })();
-
-    // (async () => {
-    //   let { status } = await Location.requestForegroundPermissionsAsync();
-    //   if (status !== "granted") {
-    //     alert("Permission to access location was denied");
-    //   }
-
-    //   await Location.getCurrentPositionAsync({});
-    //   console.log(location);
-    //   const coords = {
-    //     latitude: location.coords.latitude,
-    //     longitude: location.coords.longitude,
-    //   };
-    //   console.log(coords);
-    //   setLocation(coords);
-    // })();
   }, []);
 
   if (permission === null) {
@@ -100,6 +83,8 @@ const CreatePostsScreen = () => {
       title: title,
       photo: photo,
       point: point,
+      comments: [],
+      likes: [],
     };
 
     dispatch(createPost(post));
@@ -219,9 +204,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 8,
-    // paddingTop: 32,
-    // width: "100%",
-    // height: "100%",
     backgroundColor: "#FFFFFF",
   },
   contentContainer: {
@@ -241,9 +223,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 8,
     borderRadius: 8,
-    // borderWidth: 1,
-    // borderStyle: "solid",
-    // borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
   },
   camera: {
@@ -317,7 +296,6 @@ const styles = StyleSheet.create({
     marginBottom: 120,
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor: "#F6F6F6",
     backgroundColor: "#FF6C00",
     borderRadius: 100,
   },
@@ -326,7 +304,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontSize: 16,
     lineHeight: 19,
-    // color: "#BDBDBD",
     color: "#FFFFFF",
   },
 });

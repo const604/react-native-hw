@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -12,7 +12,6 @@ import ProfileScreen from "./ProfileScreen";
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
-  
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -38,8 +37,6 @@ const Home = () => {
           height: 40,
           marginRight: "2%",
         },
-        // tabBarActiveTintColor: "#FFFFFF",
-        // tabBarActiveBackgroundColor: "#FF6C00",
         tabBarStyle: {
           paddingTop: 9,
           justifyContent: "center",
@@ -103,26 +100,8 @@ const Home = () => {
           headerShown: false,
           tabBarActiveTintColor: "#FFFFFF",
           tabBarIcon: ({ size }) => (
-            <Feather
-              name="user"
-              size={size}
-              color="#BDBDBD"
-              // backgroundColor={focused ? "#FF6C00" : "#FFFFFF"}
-              // color={focused ? "#FFFFFF" : "#BDBDBD"}
-              // width={70}
-              // height={40}
-              // borderRadius={20}
-            />
+            <Feather name="user" size={size} color="#BDBDBD" />
           ),
-          // tabBarActiveBackgroundColor: "#FF6C00",
-          // tabBarInactiveTintColor: "#BDBDBD",
-          // tabBarIconStyle: {
-          //   backgroundColor: "#FF6C00",
-          //   color: "#FFFFFF",
-          //   width: 70,
-          //   height: 40,
-          //   borderRadius: 20,
-          // },
         }}
       />
     </Tabs.Navigator>

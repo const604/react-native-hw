@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 import {
   ImageBackground,
   Text,
@@ -23,20 +24,46 @@ const RegistrationScreen = () => {
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(true);
-  const [isPhoto, setIsPhoto] = useState(true);
+  const [avatar, setAvatar] = useState(null);
+
+  const pickImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [3, 3],
+        quality: 0.5,
+      });
+
+      if (!result.canceled) {
+        setAvatar(result.assets[0].uri);
+      } else
+        Alert.alert("Delete", "Are you sure you want to delete the image", [
+          { text: "Yes", onPress: () => setAvatar(null) },
+          { text: "No" },
+        ]);
+    } catch (error) {
+      console.log("error reading an image");
+    }
+  };
 
   const handleSubmit = () => {
     const user = {
       userName: userName,
       email: email,
       password: password,
+      avatar: avatar,
     };
+
     if (!userName || !email || !password) {
       alert("All fields must be filled");
       return;
     }
     dispatch(register(user));
-    // form.reset();
+    SetUserName("");
+    SetEmail("");
+    SetPassword("");
+    setAvatar(null);
     navigation.navigate("Login");
   };
 
@@ -54,15 +81,22 @@ const RegistrationScreen = () => {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.containerBG}>
               <View style={styles.containerImg}>
-                <Image
-                  style={styles.avatar}
-                  source={isPhoto && require("../assets/images/Rectangle.webp")}
-                />
+                {avatar ? (
+                  <Image
+                    style={{ ...styles.avatar, width: 120, height: 120 }}
+                    source={{ uri: avatar }}
+                  />
+                ) : (
+                  <Image
+                    style={styles.avatar}
+                    source={require("../assets/images/free-icon-user-456212.png")}
+                  />
+                )}
                 <AntDesign
                   name="pluscircleo"
                   size={24}
                   style={styles.addPhotoBtn}
-                  // onPress={() => navigation.navigate("LoginScreen")}
+                  onPress={pickImage}
                 />
               </View>
               <Text style={styles.pageHeader}>Реєстрація </Text>

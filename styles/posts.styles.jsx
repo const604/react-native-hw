@@ -1,0 +1,96 @@
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  containerUser: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: 32,
+    marginBottom: 32,
+    marginLeft: 16,
+    height: 60,
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 16,
+    borderWidth: 1,
+    shadowColor: "#000000",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 4,
+  },
+  userInfo: {
+    marginLeft: 8,
+  },
+  userName: {
+    color: "#212121",
+    fontSize: 13,
+    fontFamily: "Roboto-Bold",
+  },
+  userEmail: {
+    color: "#212121CC",
+    fontSize: 11,
+    fontFamily: "Roboto-Regular",
+  },
+  container: {
+    width: "100%",
+    marginBottom: 60,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  contentContainer: {
+    width: "96%",
+    height: 299,
+    marginBottom: 32,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  contentBlock: {
+    width: "100%",
+    height: 240,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#E8E8E8",
+    backgroundColor: "#F6F6F6",
+  },
+  contentImg: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 8,
+  },
+  contentName: {
+    marginBottom: 8,
+    fontSize: 16,
+    fontFamily: "Roboto-Medium",
+    color: "#212121",
+  },
+  contentDetails: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  contentDetail: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  comitText: {
+    marginLeft: 4,
+    fontSize: 16,
+    fontFamily: "Roboto-Regular",
+    color: "#BDBDBD",
+  },
+  mapText: {
+    marginLeft: 4,
+    fontSize: 16,
+    fontFamily: "Roboto-Regular",
+    color: "#212121",
+    textDecorationLine: "underline",
+  },
+});

@@ -8,6 +8,7 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  DATE,
 } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { rootReducer } from "./auth/slice";
@@ -26,7 +27,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, DATE],
       },
     }),
 });

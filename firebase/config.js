@@ -7,8 +7,6 @@ import { getFirestore } from "firebase/firestore";
 // Функція для підключення сховища файлів в проект
 import { getStorage } from "firebase/storage";
 
-// const API_KEY = import.meta.env.VITE_API_KEY;
-
 const firebaseConfig = {
   apiKey: "AIzaSyAdyRKkZ31wOfmOxDd4ME4ECV2xIL37BB0",
   authDomain: "photoapp-9518f.firebaseapp.com",
