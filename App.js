@@ -18,9 +18,16 @@ import { auth } from "./firebase/config";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(null);
 
   useEffect(() => {
+    // const user = auth.currentUser;
+    // console.log(user)
+    // if (user) {
+    //   setAuthenticated("Home");
+    // }else{
+    //   setAuthenticated("Login");}
+
     auth.onAuthStateChanged((user) => {
       setAuthenticated(user ? "Home" : "Login");
     });
@@ -39,35 +46,40 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Login"
-            screenOptions={{ headerShown: false }}
-          >
-            <Stack.Screen name="Registration" component={RegistrationScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen
-              name="Comments"
-              component={CommentsScreen}
-              options={({ navigation }) => ({
-                title: "Коментарі",
-                headerTitleAlign: "center",
-                headerLeftContainerStyle: { paddingLeft: 16 },
-                headerShown: true,
-                headerLeft: () => (
-                  <Feather
-                    name="arrow-left"
-                    size={24}
-                    color="#212121CC"
-                    onPress={() => navigation.navigate("Posts")}
-                  />
-                ),
-              })}
-            />
-            <Stack.Screen name="Map" component={MapScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        {authenticated && (
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName={authenticated}
+              screenOptions={{ headerShown: false }}
+            >
+              <Stack.Screen
+                name="Registration"
+                component={RegistrationScreen}
+              />
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen
+                name="Comments"
+                component={CommentsScreen}
+                options={({ navigation }) => ({
+                  title: "Коментарі",
+                  headerTitleAlign: "center",
+                  headerLeftContainerStyle: { paddingLeft: 16 },
+                  headerShown: true,
+                  headerLeft: () => (
+                    <Feather
+                      name="arrow-left"
+                      size={24}
+                      color="#212121CC"
+                      onPress={() => navigation.navigate("Posts")}
+                    />
+                  ),
+                })}
+              />
+              <Stack.Screen name="Map" component={MapScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        )}
       </PersistGate>
     </Provider>
   );

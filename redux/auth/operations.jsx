@@ -77,3 +77,22 @@ export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+
+export const refreshUser = createAsyncThunk(
+  "auth/refresh",
+  async (_, thunkAPI) => {
+    if (!auth.currentUser) {
+      return thunkAPI.rejectWithValue("Unable to fetch user");
+    }
+    try {
+      return {
+        id: auth.currentUser.uid,
+        email: auth.currentUser.email,
+        userName: auth.currentUser.displayName,
+        photo: auth.currentUser.photoURL,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

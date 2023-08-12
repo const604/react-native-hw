@@ -90,6 +90,9 @@ const CreatePostsScreen = () => {
     dispatch(createPost(post));
 
     navigation.navigate("Posts");
+    setPhoto(null);
+    setTitle("");
+    setPoint("");
   };
 
   const onTrash = () => {

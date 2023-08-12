@@ -14,7 +14,7 @@ export const createPost = createAsyncThunk(
   async (post, thunkAPI) => {
     try {
       const docRef = await addDoc(collection(db, "posts"), post);
-      console.log("Document written with ID: ", docRef.id);
+      // console.log("Document written with ID: ", docRef.id);
       return { postId: docRef.id, ...post };
     } catch (e) {
       return thunkAPI.rejectWithValue(error.message);
@@ -29,7 +29,9 @@ export const getPosts = createAsyncThunk(
       const snapshot = await getDocs(collection(db, "posts"));
       // Перевіряємо у консолі отримані дані
       const posts = [];
-      snapshot.forEach((post) => posts.push({ postId: post.id, ...post.data() }));
+      snapshot.forEach((post) =>
+        posts.push({ postId: post.id, ...post.data() })
+      );
       // Повертаємо масив обʼєктів у довільній формі
       // snapshot.map((post) => ({ id: post.id, data: post.data() }));
       return posts;
@@ -41,12 +43,12 @@ export const getPosts = createAsyncThunk(
 
 export const updateComments = createAsyncThunk(
   "posts/updateComments",
-  async ( {postId, ...comment} , thunkAPI) => {
+  async (comment, thunkAPI) => {
     try {
+      const { postId, userId, text, commentDate } = comment;
       await updateDoc(doc(db, "posts", postId), {
         comments: arrayUnion(comment),
       });
-      console.log("comments updated");
       return comment;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -61,8 +63,7 @@ export const updateLikes = createAsyncThunk(
       await updateDoc(doc(db, "posts", postId), {
         likes: arrayUnion(userId),
       });
-      console.log("likes updated");
-      return userId;
+      return { postId, userId };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

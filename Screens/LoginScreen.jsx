@@ -31,6 +31,7 @@ const LoginScreen = () => {
     }
     dispatch(logIn(user));
     if (!isLoggedIn) {
+      alert("Wrong login or rassword");
       return navigation.navigate("Login");
     }
     navigation.navigate("Home");

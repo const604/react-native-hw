@@ -3,36 +3,38 @@ import { Image, View, Text, StyleSheet } from "react-native";
 import { useAuth } from "../hooks/useAuth";
 
 const Comment = ({ comment }) => {
-
-  const { userId, commentDate, text } = comment;
+  const { userId, postId, commentDate, text } = comment;
   const { user } = useAuth();
 
-  return user.id === userId ? (
-    <View style={styles.commentBlock}>
-      <Image
-        style={{ ...styles.avatar, width: 28, height: 28 }}
-        source={{ uri: user.avatar }}
-      />
-      <View style={{ ...styles.comment, marginRight: 44 }}>
-        <Text style={styles.commentText}>{text}</Text>
-        <Text style={{ ...styles.dataText, textAlign: "left" }}>
-          {commentDate}
-        </Text>
+  return (
+    postId &&
+    (user.id === userId ? (
+      <View style={styles.commentBlock}>
+        <Image
+          style={{ ...styles.avatar, width: 28, height: 28 }}
+          source={{ uri: user.avatar }}
+        />
+        <View style={{ ...styles.comment, marginRight: 44 }}>
+          <Text style={styles.commentText}>{text}</Text>
+          <Text style={{ ...styles.dataText, textAlign: "left" }}>
+            {commentDate}
+          </Text>
+        </View>
       </View>
-    </View>
-  ) : (
-    <View style={styles.commentBlock}>
-      <Image
-        style={styles.avatar}
-        source={require("../assets/images/free-icon-user-456212.png")}
-      />
-      <View style={{ ...styles.comment, marginLeft: 44 }}>
-        <Text style={styles.commentText}>{text}</Text>
-        <Text style={{ ...styles.dataText, textAlign: "right" }}>
-          {commentDate}
-        </Text>
+    ) : (
+      <View style={styles.commentBlock}>
+        <Image
+          style={styles.avatar}
+          source={require("../assets/images/free-icon-user-456212.png")}
+        />
+        <View style={{ ...styles.comment, marginLeft: 44 }}>
+          <Text style={styles.commentText}>{text}</Text>
+          <Text style={{ ...styles.dataText, textAlign: "right" }}>
+            {commentDate}
+          </Text>
+        </View>
       </View>
-    </View>
+    ))
   );
 };
 

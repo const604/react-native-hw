@@ -35,27 +35,26 @@ const postsSlice = createSlice({
       .addCase(createPost.pending, handlePending)
       .addCase(createPost.rejected, handleRejected)
 
-      .addCase(updateComments.pending, handlePending)
       .addCase(updateComments.fulfilled, (state, action) => {
-        const post = state.posts.find(
-          (post) => post.id === action.payload.postId
-        );
-        console.log("comment published");
         state.isLoading = false;
         state.error = null;
+        const post = state.posts.find(
+          (post) => post.postId === action.payload.postId
+        );
         post.comments.push(action.payload);
       })
+      .addCase(updateComments.pending, handlePending)
       .addCase(updateComments.rejected, handleRejected)
 
-      .addCase(updateLikes.pending, handlePending)
       .addCase(updateLikes.fulfilled, (state, action) => {
-        const post = state.posts.find(
-          (post) => post.id === action.payload.postId
-        );
         state.isLoading = false;
         state.error = null;
+        const post = state.posts.find(
+          (post) => post.postId === action.payload.postId
+        );
         post.likes.push(action.payload);
       })
+      .addCase(updateLikes.pending, handlePending)
       .addCase(updateLikes.rejected, handleRejected),
 });
 
